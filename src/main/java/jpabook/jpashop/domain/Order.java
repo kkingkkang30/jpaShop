@@ -18,7 +18,7 @@ public class Order {
     @Column(name="order_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id") // fk
     private Member member;
     /*
@@ -26,11 +26,11 @@ public class Order {
     * 주인은 그대로 두면 되고 주인ㅇ ㅏ닌 애한테 mappedBy 추가
     * */
 
-
-    @OneToMany(mappedBy = "order")
+    //  cascade = CascadeType.ALL => orderItem 따로 저장안하고 order 저장할때 orderItem 한번에 저장해줌.
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 
@@ -38,4 +38,23 @@ public class Order {
 
     private OrderStatus status; // order, cancle
 
+
+    // 연관 관계 편의 메서드 //
+    public void setMember(Member member){
+        this.member = member;
+        member.getOrders().add(this);
+
+
+        // 메서드 하나로 양방향 setting..?
+    }
+
+    public void addOrderItem(OrderItem orderItem){
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
+
+    public void setDelivery(Delivery delivery){
+        this.delivery = delivery;
+        delivery.setOrder(this);
+    }
 }
