@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.*;
 
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
@@ -22,7 +23,7 @@ public class MemberServiceTest {
     @Autowired MemberRepository memberRepository;
     @Autowired
     EntityManager em;
-    
+
     @Test
     public void 회원가입() throws Exception{
 
@@ -32,7 +33,7 @@ public class MemberServiceTest {
 
         // when
         Long memberId = memberService.join(member);
-        
+
         // then
         em.flush();  ///  DB 에 쿼리 날리는걸 보고싶을때 / 혹은 Rollback(false) 로 하면 됨
         assertEquals(member, memberRepository.findOne(memberId));
@@ -43,7 +44,7 @@ public class MemberServiceTest {
     public void 중복_회원_예외() throws Exception{
 
         //given
-        
+
         Member member1 = new Member();
         member1.setName("kim");
 
