@@ -28,7 +28,7 @@ public class MemberServiceTest {
     public void 회원가입() throws Exception{
 
         // given
-        Member member = new Member();
+                                   Member member = new Member();
         member.setName("kim");
 
         // when

@@ -38,3 +38,6 @@ out/
 
 ##setting.gradle
 settings.gradle
+
+## groovy test
+/src/test/groovy/
