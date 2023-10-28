@@ -17,7 +17,9 @@ public class ItemRepository {
         if(item.getId() == null){
             em.persist(item);
         }else{
-            em.merge(item);
+            Item mergedItem = em.merge(item);
+            // mergedItem 은 영속성 컨텐스트이기 때문에 앞ㅇ으로는 얘를 활용해야함
+            // item은 비영속성.
         }
     }
 
